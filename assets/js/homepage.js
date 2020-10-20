@@ -33,9 +33,17 @@ var getUserRepos = function(user){
 
 
     fetch(apiUrl).then(function(response) {
-        response.json().then(function(data){
-            displayRepos(data, user);
-        });
+        if(response.ok) {
+            
+            response.json().then(function(data){
+                displayRepos(data, user);
+            });
+        } else {
+            alert("Error: " + response.statusText);
+        }
+    })
+    .catch(function(error){
+    alert("Unable to connect to GitHub");    
     });
 };
 
@@ -43,6 +51,12 @@ var getUserRepos = function(user){
 var displayRepos = function(repos, searchTerm){
     repoContainerEl.textContent = "";
     repoSearchTerm.textContent = searchTerm;
+
+    // check if the repo is empty, if it is return notning
+    if(repos.length === 0){
+        repoContainerEl.textContent = "No repositories found.";
+        return;
+    }
 
     //console.log(repos);
     //console.log(searchTerm);
