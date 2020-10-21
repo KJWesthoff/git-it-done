@@ -110,7 +110,7 @@ var buttonClickHandler = function(event){
     var language = event.target.getAttribute("data-language");
     
     if(language){
-        getFeaturedRepos(langugage);
+        getFeaturedRepos(language);
         repoContainerEl.textContent = "";
     }
 };
